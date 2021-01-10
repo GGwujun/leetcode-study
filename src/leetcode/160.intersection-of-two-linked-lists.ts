@@ -62,7 +62,6 @@ var getIntersectionNode = function (headA, headB) {
   let lA = headA,
     lB = headB;
   while (lA) {
-    if (lA == null) return null;
     let tmpB = lB;
     while (tmpB) {
       if (tmpB == lA) return lA;
@@ -91,7 +90,6 @@ var getIntersectionNode = function (headA, headB) {
     lB = lB.next;
   }
   while (lA) {
-    if (lA == null) return null;
     if (hash.has(lA)) return lA;
     lA = lA.next;
   }
