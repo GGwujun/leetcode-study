@@ -25,11 +25,15 @@ console.log(
 );
 
 a = [1, 2, 3, 4, 5, 6, 7];
-let bTree = new BTree(a);
+let bTree = new BTree();
+bTree.init(a);
+console.log(bTree.root);
 console.log("前序遍历：", bTree.preOrder());
 console.log("中序遍历：", bTree.inOrder());
 console.log("后序遍历：", bTree.postOrder());
 console.log("层序遍历：", bTree.levelOrder());
+console.log("迭代遍历：", bTree.inorderTraversal());
+console.log("在树中深度搜索6", bTree.dfs(bTree.root, 6));
 
 console.log("----------- 二叉查找树");
 console.log(

@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "promise:test": "promises-aplus-tests /lib/review/promise/MyPromise"
   },
   "license": "MIT",
   "dependencies": {
+    "promises-aplus-tests": "^2.1.2",
     "typescript": "^4.1.3"
   }
 }

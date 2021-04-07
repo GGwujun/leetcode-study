@@ -5,7 +5,7 @@
  * 队列只有 入队 push() 和出队 pop()
  */
 
-class Queue {
+export class Queue {
   items: any[] = [];
   enqueue(data, priority?) {
     this.items.push(data);

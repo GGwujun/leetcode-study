@@ -22,8 +22,10 @@ i = right / 2;  // 这里是向下取整
 
  */
 
+import { Queue } from "../queue";
+
 // 节点构造函数
-export function Node(val) {
+export function Node(val): void {
   this.val = val;
   this.left = null;
   this.right = null;
@@ -34,7 +36,7 @@ export function Node(val) {
  * 完全二叉树，因为一般的二叉树没法生成
  */
 export class BinaryTree {
-  root: Node;
+  root;
   constructor() {
     this.root = null;
   }
@@ -59,6 +61,7 @@ export class BinaryTree {
   }
   // 前序遍历
   preOrder() {
+    let order = "";
     // 递归函数
     function r(node) {
       if (!node) return;
@@ -66,7 +69,6 @@ export class BinaryTree {
       r(node.left);
       r(node.right);
     }
-    let order = "";
     r(this.root);
     order = order.slice(0, order.length - 1);
     return order;
@@ -82,7 +84,7 @@ export class BinaryTree {
     }
     let order = "";
     r(this.root);
-    order = order.slice(0, order.length - 1);
+    order = order.slice(0, order.length - 1); // 截取最后一个，符号
     return order;
   }
   //后序遍历
@@ -96,7 +98,7 @@ export class BinaryTree {
     }
     let order = "";
     r(this.root);
-    order = order.slice(0, order.length - 1);
+    order = order.slice(0, order.length - 1); // 截取最后一个,符号
     return order;
   }
   // 层序遍历
@@ -118,5 +120,68 @@ export class BinaryTree {
       if (right) a.push(right);
     }
     return a.map((item) => item.val).join(",");
+  }
+  /**
+   * 迭代写法，也可以用来做前序，中序，后序的遍历
+      这个位置决定了遍历的顺序，如果先出栈则是前序遍历，中间则是中序遍历，第一个则是后序遍历
+   * 
+   */
+  inorderTraversal() {
+    let gray = 1,
+      white = 0;
+    let res = [];
+    let stack = [
+      {
+        color: white,
+        nodes: this.root,
+      },
+    ];
+    while (stack.length) {
+      let { color, nodes } = stack.pop();
+      if (!nodes) continue;
+      if (color === white) {
+        stack.push({
+          color: gray,
+          nodes,
+        });
+        stack.push({
+          color: white,
+          nodes: nodes.right,
+        });
+        // stack.push({
+        //   color: gray,
+        //   nodes,
+        // });
+        stack.push({
+          color: white,
+          nodes: nodes.left,
+        });
+        // stack.push({// 前序
+        //   color: gray,
+        //   nodes,
+        // });
+      } else {
+        res.push(nodes.val);
+      }
+    }
+    return res;
+  }
+  dfs(root, value) {
+    if (!root) return root;
+    this.dfs(root.left, value);
+    // 业务逻辑的位置决定了遍历的方式
+    console.log(root.val);
+    this.dfs(root.right, value);
+  }
+  bfs(root) {
+    let q = new Queue();
+    q.enqueue(root);
+    while (q.size) {
+      let i = q.dequeue();
+      if (i === 0) return i;
+      if (i.left) q.enqueue(i.left);
+      if (i.right) q.enqueue(i.right);
+    }
+    return -1;
   }
 }
