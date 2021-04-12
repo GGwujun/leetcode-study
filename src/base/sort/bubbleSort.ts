@@ -10,33 +10,105 @@
  * 空间复杂度：O(1)
  */
 
-var dubbleSort = function (array) {
+// [1, 3, 4, 2, 5, 9, 56, 4, 9, 8];
+
+//第一轮，比较9次，最终把56放到最后一个位置---
+// [1, 3, 4, 2, 5, 9, 56, 4, 9, 8];
+
+// 比较过程
+
+// [1, 3, 4, 2, 5, 9, 56, 4, 9, 8]; 1
+// [1, 3, 4, 2, 5, 9, 56, 4, 9, 8]; 2
+// [1, 3, 2, 4, 5, 9, 56, 4, 9, 8]; 3
+// [1, 3, 2, 4, 5, 9, 56, 4, 9, 8]; 4
+// [1, 3, 2, 4, 5, 9, 56, 4, 9, 8]; 5
+// [1, 3, 2, 4, 5, 9, 56, 4, 9, 8]; 6
+// [1, 3, 2, 4, 5, 9, 4, 56, 9, 8]; 7
+// [1, 3, 2, 4, 5, 9, 4, 9, 56, 8]; 8
+// [1, 3, 2, 4, 5, 9, 4, 9, 8, 56]; 9
+
+// 第二次比较 比较8次,最终9被放到对应的位置上
+// [1, 3, 2, 4, 5, 9, 4, 9, 8,56]; 1
+// [1, 2, 3, 4, 5, 9, 4, 9, 8,56]; 2
+// [1, 2, 3, 4, 5, 9, 4, 9, 8,56]; 3
+// [1, 2, 3, 4, 5, 9, 4, 9, 8,56]; 4
+// [1, 2, 3, 4, 5, 9, 4, 9, 8,56]; 5
+// [1, 2, 3, 4, 5, 4, 9, 9, 8,56]; 6
+// [1, 2, 3, 4, 5, 4, 9, 9, 8,56]; 7
+// [1, 2, 3, 4, 5, 4, 9, 8, 9,56]; 8
+
+// 第三次比较 比较7次,最终9被放到对应的位置上
+// [1, 2, 3, 4, 5, 4, 9, 8, 9,56]; 1
+// [1, 2, 3, 4, 5, 4, 9, 8, 9,56]; 2
+// [1, 2, 3, 4, 5, 4, 9, 8, 9,56]; 3
+// [1, 2, 3, 4, 5, 4, 9, 8, 9,56]; 4
+// [1, 2, 3, 4, 4, 5, 9, 8, 9,56]; 5
+// [1, 2, 3, 4, 4, 5, 9, 8, 9,56]; 6
+// [1, 2, 3, 4, 4, 5, 8, 9, 9,56]; 7
+
+// 。。。。
+
+// 第四次比较不会发生交换，所以数据已经是有序的了 这也是冒泡排序可以优化的地方
+// 每次交换都有可能导致前面的顺序被打乱，但是最后一次交换后面的数据顺序不会再被打乱，所以比较的轮数也可以优化
+// 除了每次一轮让一个元素放到指定位置，我们也可以头尾同时冒泡
+
+export const dubbleSort = function (array) {
+  console.time("dubbleSort:冒泡排序耗时");
   for (let i = 0; i < array.length - 1; i++) {
-    for (let j = 1; j < array.length - i - 1; j++) {
+    for (let j = 0; j < array.length - 1 - i; j++) {
       if (array[j] > array[j + 1]) {
-        let tmpa = array[j];
-        array[j] = array[j + 1];
-        array[j + 1] = tmpa;
+        [array[j], array[j + 1]] = [array[j + 1], array[j]];
       }
     }
   }
+  console.timeEnd("dubbleSort:冒泡排序耗时");
+  return array;
 };
 
-/**
- * 如果某一次没有发生一次数据交换说明数据已经有序，所以不要再排序了
- * @param array
- */
-var dubbleSort2 = function (array) {
-  for (let i = 0; i < array.length - 1; i++) {
-    let hasChange = false;
-    for (let j = 1; j < array.length - i - 1; j++) {
+export const dubbleSort2 = function (array) {
+  console.time("dubbleSort2:冒泡排序耗时");
+  let i = array.length - 1;
+  while (i > 0) {
+    let pos = 0;
+    for (let j = 0; j < i; j++) {
       if (array[j] > array[j + 1]) {
-        let tmpa = array[j];
-        array[j] = array[j + 1];
-        array[j + 1] = tmpa;
-        hasChange = true;
+        pos = j;
+        [array[j], array[j + 1]] = [array[j + 1], array[j]];
       }
     }
-    if (!hasChange) break;
+    i = pos;
   }
+  console.timeEnd("dubbleSort2:冒泡排序耗时");
+  return array;
+};
+
+export const dubbleSort3 = function (array) {
+  let low = 0;
+  let high = array.length - 1;
+  let j;
+  console.time("dubbleSort3:冒泡排序耗时");
+
+  while (low < high) {
+    for (
+      j = low;
+      j < high;
+      j++ //正向冒泡,找到最大者
+    ) {
+      if (array[j] > array[j + 1]) {
+        [array[j], array[j + 1]] = [array[j + 1], array[j]];
+      }
+    }
+    high--; //修改high值, 前移一位
+    for (
+      j = high;
+      j > low;
+      j-- //反向冒泡,找到最小者
+    )
+      if (array[j] < array[j - 1]) {
+        [array[j], array[j - 1]] = [array[j - 1], array[j]];
+      }
+    low++; //修改low值,后移一位
+  }
+  console.timeEnd("dubbleSort3:冒泡排序耗时");
+  return array;
 };

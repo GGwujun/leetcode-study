@@ -8,9 +8,24 @@
 重复第二步，直到所有元素均排序完毕。
  */
 
-const selectionSort = (array) => {
+// [1, 3, 4, 2, 5, 9, 56, 4, 9, 8];
+
+// 每次从数组中取出一个，从1后面的元素开始比较，找到最小的元素然后交换
+
+// [1, 3, 4, 2, 5, 9, 56, 4, 9, 8]; 0
+// [1, 2, 4, 3, 5, 9, 56, 4, 9, 8]; 1
+// [1, 2, 3, 4, 5, 9, 56, 4, 9, 8]; 2
+// [1, 2, 3, 4, 5, 9, 56, 4, 9, 8]; 3
+// [1, 2, 3, 4, 4, 9, 56, 5, 9, 8]; 4
+// [1, 2, 3, 4, 4, 5, 56, 9, 9, 8]; 5
+// [1, 2, 3, 4, 4, 5, 8, 9, 9, 56]; 6
+// [1, 2, 3, 4, 4, 5, 8, 9, 9, 56]; 7
+// [1, 2, 3, 4, 4, 5, 8, 9, 9, 56]; 8
+
+export const selectionSort = (array) => {
   const len = array.length;
-  let minIndex, temp;
+  let minIndex;
+  console.time("选择排序耗时");
   for (let i = 0; i < len - 1; i++) {
     minIndex = i;
     for (let j = i + 1; j < len; j++) {
@@ -19,10 +34,8 @@ const selectionSort = (array) => {
         minIndex = j; // 将最小数的索引保存
       }
     }
-    temp = array[i];
-    array[i] = array[minIndex];
-    array[minIndex] = temp;
-    console.log("array: ", array);
+    [array[i], array[minIndex]] = [array[minIndex], array[i]];
   }
+  console.timeEnd("选择排序耗时");
   return array;
 };
