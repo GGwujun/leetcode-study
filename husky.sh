@@ -1,2 +1,2 @@
 #!/bin/sh
-debug "starting $hook_name..."
+echo "husky (debug) - $1"
