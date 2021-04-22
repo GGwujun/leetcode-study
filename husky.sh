@@ -1,2 +1,2 @@
 #!/bin/sh
-echo "husky (debug) - $1"
+echo "husky 99999999 (debug) - $1"
