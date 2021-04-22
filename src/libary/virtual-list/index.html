@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>virtual list</title>
+    <style>
+        .list-view {
+            height: 200px;
+            overflow: auto;
+            position: relative;
+            border: 1px solid #aaa;
+        }
+
+        .list-view-phantom {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            z-index: -1;
+        }
+
+        .list-view-content {
+            left: 0;
+            right: 0;
+            top: 0;
+            position: absolute;
+        }
+
+        .list-view-item {
+            padding: 5px;
+            color: #666;
+            line-height: 30px;
+            box-sizing: border-box;
+            border: 1px solid #dedede;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="list-view" @scroll="handleScroll">
+            <div class="list-view-phantom" :style="{
+             height: contentHeight
+          }">
+            </div>
+            <div ref="content" class="list-view-content">
+                <div class="list-view-item" :style="{
+              height: itemHeight + 'px'
+            }" v-for="item in visibleData">
+                    {{ item.value }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>

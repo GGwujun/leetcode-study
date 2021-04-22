@@ -15,8 +15,8 @@ https://leetcode-cn.com/problems/maximum-subarray/
 */
 
 /**
- * 贪心算法：
- * 循环数组，把数组每一项求和，当前值和之前的和比大小，如果当前值小于之前和，则求和，否则丢弃之前的和
+ * 动态算法：
+ * 循环数组，把数组每一项求和，当前值比之前的和比大小，如果当前值小于之前和，则求和，否则丢弃之前的和
  * 最大值每次比较
  * @param {number[]} nums
  * @return {number}
@@ -34,7 +34,7 @@ var maxSubArray = function (nums) {
 console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
 
 /**
- * 动态规划：
+ * 贪心：
  * 循环数组，把每一项求和，在求和的过程中判断前一个元素如果小于0则丢弃，大于0则求和
  * @param {number[]} nums
  * @return {number}

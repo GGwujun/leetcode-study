@@ -10,7 +10,6 @@ console.log(Fibonacci(5));
 
 //尾递归优化
 const Fibonacci2 = function (n, n1, n2) {
-  console.log(3);
   if (n === 0) return n1;
   return Fibonacci2(n - 1, n2, n1 + n2);
 };
