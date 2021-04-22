@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
+    "test": "echo 7878",
     "promise:test": "promises-aplus-tests /lib/review/promise/MyPromise"
   },
   "license": "MIT",
