@@ -172,7 +172,6 @@ MyPromise.all = function (promiseArr) {
     promiseArr.forEach((promise, index) => {
       promise.then((value) => {
         result[index] = value;
-
         if (result.length === promiseArr.length) {
           resolve(result);
         }

@@ -1,1 +1,1 @@
-console.log(11);
+echo 77

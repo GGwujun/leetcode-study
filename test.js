@@ -52,3 +52,7 @@ function install(dir = ".husky") {
 }
 
 install();
+
+var findMagicIndex = function (nums: any[]) {
+  return nums.findIndex((num, index) => num === index);
+};
